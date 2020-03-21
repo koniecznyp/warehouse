@@ -1,0 +1,12 @@
+@url = http://localhost:5000
+@productId = 00000000-0000-0000-0000-000000000000
+
+###
+POST {{url}}/products
+Content-Type: application/json
+
+{
+  "productId": "{{productId}}",
+  "name": "test",
+  "price": 34.99
+}
