@@ -2,7 +2,7 @@ using System;
 
 namespace Warehouse.Application.Exceptions
 {
-    public class ProductAlreadyExistsException : ApplicationException
+    public class ProductAlreadyExistsException : AppException
     {
         public override string Code => "product_already_exists";
         public Guid Id { get; }

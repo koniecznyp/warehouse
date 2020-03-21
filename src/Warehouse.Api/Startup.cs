@@ -1,18 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Warehouse.Application;
 using Warehouse.Infrastructure;
-using Warehouse.Infrastructure.Mongo.Repositories;
+using Warehouse.Infrastructure.Middlewares;
 
 namespace Warehouse.Api
 {
@@ -40,6 +33,7 @@ namespace Warehouse.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
