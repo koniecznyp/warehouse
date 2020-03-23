@@ -10,3 +10,6 @@ Content-Type: application/json
   "name": "test",
   "price": 34.99
 }
+
+###
+DELETE {{url}}/products/{{productId}}

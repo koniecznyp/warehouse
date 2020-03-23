@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using Warehouse.Application.Commands;
 using Warehouse.Application.Commands.Products;
@@ -21,6 +22,13 @@ namespace Warehouse.Api.Controllers
         {
             await commandDispatcher.DispatchAsync(command);
             return Created($"products/{command.ProductId}", null);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(Guid id)
+        {
+            await commandDispatcher.DispatchAsync(new DeleteProduct(id));
+            return NoContent();
         }
     }
 }

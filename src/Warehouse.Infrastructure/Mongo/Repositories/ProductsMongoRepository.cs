@@ -23,5 +23,8 @@ namespace Warehouse.Infrastructure.Mongo.Repositories
 
         public async Task<bool> ExistsAsync(AggregateId id)
             => await _products.Find(x => x.Id == id).AnyAsync();
+
+        public async Task DeleteAsync(AggregateId id)
+            => await _products.DeleteOneAsync(x => x.Id == id);
     }
 }
