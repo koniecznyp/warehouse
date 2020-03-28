@@ -2,6 +2,12 @@
 @productId = 00000000-0000-0000-0000-000000000000
 
 ###
+GET {{url}}/products/{{productId}}
+
+###
+GET {{url}}/products?priceFrom=30&priceTo=45
+
+###
 POST {{url}}/products
 Content-Type: application/json
 

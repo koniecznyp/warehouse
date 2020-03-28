@@ -3,6 +3,9 @@ using System;
 using System.Threading.Tasks;
 using Warehouse.Application.Commands;
 using Warehouse.Application.Commands.Products;
+using Warehouse.Application.Dto;
+using Warehouse.Application.Queries;
+using Warehouse.Application.Queries.Products;
 
 namespace Warehouse.Api.Controllers
 {
@@ -11,10 +14,12 @@ namespace Warehouse.Api.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly ICommandDispatcher commandDispatcher;
+        private readonly IQueryDispatcher queryDispatcher;
 
-        public ProductsController(ICommandDispatcher commandDispatcher)
+        public ProductsController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher)
         {
             this.commandDispatcher = commandDispatcher;
+            this.queryDispatcher = queryDispatcher;
         }
 
         [HttpPost]
@@ -29,6 +34,24 @@ namespace Warehouse.Api.Controllers
         {
             await commandDispatcher.DispatchAsync(new DeleteProduct(id));
             return NoContent();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ProductDto>> GetAsync(Guid id)
+        {
+            var product = await queryDispatcher.QueryAsync(new GetProduct(id));
+            if (product is null)
+            {
+                return NotFound();
+            }
+            return Ok(product);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<ProductDto>> GetAsync([FromQuery] GetProducts query)
+        {
+            var products = await queryDispatcher.QueryAsync(query);
+            return Ok(products);
         }
     }
 }

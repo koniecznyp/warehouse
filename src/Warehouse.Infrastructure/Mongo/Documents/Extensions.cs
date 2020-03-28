@@ -1,3 +1,4 @@
+using Warehouse.Application.Dto;
 using Warehouse.Core.Entities;
 
 namespace Warehouse.Infrastructure.Mongo.Documents
@@ -9,6 +10,13 @@ namespace Warehouse.Infrastructure.Mongo.Documents
             {
                 Id = entity.Id.Value,
                 Version = entity.Version,
+                Name = entity.Name,
+                Price = entity.Price
+            };
+
+        public static ProductDto AsDto(this ProductDocument entity)
+            => new ProductDto
+            {
                 Name = entity.Name,
                 Price = entity.Price
             };
