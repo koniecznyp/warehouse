@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Warehouse.Application;
 using Warehouse.Infrastructure;
 using Warehouse.Infrastructure.Middlewares;
+using Warehouse.Infrastructure.Validators;
 
 namespace Warehouse.Api
 {
@@ -21,7 +23,8 @@ namespace Warehouse.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers()
-                .AddNewtonsoftJson();
+                .AddNewtonsoftJson()
+                .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<IProductValidator>());
             services.AddApplication();
             services.AddInfrastructure(Configuration);
         }
