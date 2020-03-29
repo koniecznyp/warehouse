@@ -13,9 +13,19 @@ Content-Type: application/json
 
 {
   "productId": "{{productId}}",
-  "name": "test",
+  "name": "Product name",
   "price": 34.99
 }
 
 ###
 DELETE {{url}}/products/{{productId}}
+
+###
+PUT {{url}}/products/{{productId}}
+Content-Type: application/json
+
+{
+  "productId": "{{productId}}",
+  "name": "New product name",
+  "price": 29.99
+}

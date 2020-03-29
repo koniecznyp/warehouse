@@ -18,6 +18,12 @@ namespace Warehouse.Infrastructure.Mongo.Repositories
         private IMongoCollection<ProductDocument> _products 
             => _repository.GetCollection<ProductDocument>("products");
 
+        public async Task<Product> GetAsync(AggregateId id)
+        {
+            var document = await _products.Find(x => x.Id == id).SingleOrDefaultAsync();
+            return document?.AsEntity();
+        }
+
         public async Task AddAsync(Product product)
             => await _products.InsertOneAsync(product.AsDocument());
 
@@ -26,5 +32,8 @@ namespace Warehouse.Infrastructure.Mongo.Repositories
 
         public async Task DeleteAsync(AggregateId id)
             => await _products.DeleteOneAsync(x => x.Id == id);
+
+        public async Task UpdateAsync(Product product)
+            => await _products.ReplaceOneAsync(p => p.Id == product.Id, product.AsDocument());
     }
 }

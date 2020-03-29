@@ -9,16 +9,18 @@ namespace Warehouse.Infrastructure.Mongo.Documents
             => new ProductDocument
             {
                 Id = entity.Id.Value,
-                Version = entity.Version,
                 Name = entity.Name,
                 Price = entity.Price
             };
 
-        public static ProductDto AsDto(this ProductDocument entity)
+        public static ProductDto AsDto(this ProductDocument document)
             => new ProductDto
             {
-                Name = entity.Name,
-                Price = entity.Price
+                Name = document.Name,
+                Price = document.Price
             };
+
+        public static Product AsEntity(this ProductDocument document)
+            => new Product(document.Id, document.Name, document.Price);
     }
 }

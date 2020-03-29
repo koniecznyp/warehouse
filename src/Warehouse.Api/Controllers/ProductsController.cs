@@ -6,6 +6,7 @@ using Warehouse.Application.Commands.Products;
 using Warehouse.Application.Dto;
 using Warehouse.Application.Queries;
 using Warehouse.Application.Queries.Products;
+using Warehouse.Infrastructure.Mvc;
 
 namespace Warehouse.Api.Controllers
 {
@@ -33,6 +34,13 @@ namespace Warehouse.Api.Controllers
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
             await commandDispatcher.DispatchAsync(new DeleteProduct(id));
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync(Guid id, UpdateProduct command)
+        {
+            await commandDispatcher.DispatchAsync(command.Bind(x => x.ProductId, id));
             return NoContent();
         }
 

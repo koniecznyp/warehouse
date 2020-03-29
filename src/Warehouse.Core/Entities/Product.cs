@@ -8,15 +8,23 @@ namespace Warehouse.Core.Entities
         public string Name { get; set; }
         public decimal Price { get; set; }
 
-        public Product(Guid id, string name, decimal price, int version = 0)
+        public Product(Guid id, string name, decimal price)
         {
             Id = id;
-            Name = name;
+            SetName(name);
             SetPrice(price);
-            Version = version;
         }
 
-        private void SetPrice(decimal price)
+        public void SetName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new InvalidProductNameException();
+            }
+            Name = name;
+        }
+
+        public void SetPrice(decimal price)
         {
             if(price < 1)
             {

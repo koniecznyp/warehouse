@@ -8,7 +8,6 @@ namespace Warehouse.Infrastructure.Mongo.Documents
     {
         [BsonRepresentation(BsonType.String)]
         public Guid Id { get; set; }
-        public int Version { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
     }
