@@ -4,7 +4,7 @@ using System;
 
 namespace Warehouse.Infrastructure.Mongo.Documents
 {
-    internal sealed class ProductDocument : IIdentifiable<Guid>
+    public class ProductDocument : IIdentifiable<Guid>
     {
         [BsonRepresentation(BsonType.String)]
         public Guid Id { get; set; }

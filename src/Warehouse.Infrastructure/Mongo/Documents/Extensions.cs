@@ -16,6 +16,7 @@ namespace Warehouse.Infrastructure.Mongo.Documents
         public static ProductDto AsDto(this ProductDocument document)
             => new ProductDto
             {
+                Id = document.Id,
                 Name = document.Name,
                 Price = document.Price
             };

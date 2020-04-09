@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using Microsoft.Extensions.Logging;
+using MongoDB.Driver;
 using System;
 using System.Threading.Tasks;
 using Warehouse.Infrastructure.Mongo;
@@ -22,10 +23,14 @@ namespace Warehouse.Tests.EndToEnd.Fixtures
             this.collectionName = collectionName;
             database = client.GetDatabase(databaseName);
             collection = database.GetCollection<TEntity>(collectionName);
+            disposed = false;
         }
 
         public Task<TEntity> GetAsync(TKey id)
             => collection.Find(d => d.Id.Equals(id)).SingleOrDefaultAsync();
+
+        public Task AddAsync(TEntity entity)
+            => collection.InsertOneAsync(entity);
 
         public void Dispose()
         {
