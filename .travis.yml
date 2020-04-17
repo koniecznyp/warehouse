@@ -12,6 +12,7 @@ before_script:
 script:
   - ./scripts/dotnet-build.sh
   - ./scripts/dotnet-test.sh
+  - ./scripts/docker-publish.sh
 notifications:
   email:
     on_success: never

@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  
+  warehouse-service:
+    image: klsh/warehouse:latest
+    container_name: warehouse
+    ports:
+      - 5001:5000
+    environment:
+      - ASPNETCORE_ENVIRONMENT=docker
+    networks:
+      - warehouse
+      
+  mongo:
+    image: mongo:4
+    container_name: mongodb
+    volumes:
+      - mongo:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - warehouse
+      
+volumes:
+  mongo:
+    driver: local
+
+networks:
+  warehouse:
+    name: warehouse-network
